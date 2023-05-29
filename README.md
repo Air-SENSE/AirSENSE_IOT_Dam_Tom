@@ -1,2 +1,3 @@
-# AirSENSE_IOT_Dam_Tom
-Dự án đo chất lượng nước và phân tích dữ liệu cho robot lặn dưới nước
+# AirSENSE-ESP32-RTOS
+
+we are using freeRTOS because NonOS is very stupid

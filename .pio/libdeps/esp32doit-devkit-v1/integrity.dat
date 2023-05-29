@@ -1,0 +1,7 @@
+knolleary/PubSubClient@^2.8
+jdollar/SoftwareSerialEsp32@0.0.0-alpha+sha.6d373ecd5f
+arduino-libraries/NTPClient@^3.2.1
+adafruit/RTClib@^2.1.1
+marian-craciunescu/ESP32Ping@^1.7
+bblanchon/ArduinoJson@^6.17.2
+adafruit/Adafruit BusIO@^1.13.2

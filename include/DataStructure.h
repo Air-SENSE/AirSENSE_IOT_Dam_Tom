@@ -61,12 +61,22 @@ struct sensorData {
     float temperatureVoltage_f;
     float salinityVoltage_f;
 
+    float ph_f;
+    float temperature_c_f;
+    float salinity_f;
+    float do_f;
+
     sensorData() 
     {
         this->phVoltage_f	         = 0;
         this->doVoltage_f		     = 0;
         this->temperatureVoltage_f   = 0;
         this->salinityVoltage_f      = 0;
+
+        this->ph_f	            = 0;
+        this->do_f		        = 0;
+        this->temperature_c_f   = 0;
+        this->salinity_f        = 0;
     };
 
 
@@ -77,6 +87,11 @@ struct sensorData {
         this->doVoltage_f		     = _sensorData_temp.doVoltage_f;
         this->temperatureVoltage_f   = _sensorData_temp.temperatureVoltage_f;
         this->salinityVoltage_f      = _sensorData_temp.salinityVoltage_f;
+
+        this->ph_f	            = _sensorData_temp.ph_f;
+        this->do_f		        = _sensorData_temp.do_f;
+        this->temperature_c_f   = _sensorData_temp.temperature_c_f;
+        this->salinity_f        = _sensorData_temp.salinity_f;
 
         return _sensorData_temp;
     }

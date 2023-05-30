@@ -4,7 +4,38 @@
 void device_getData()
 {
   struct sensorData sensorDataTemp_st;
+  if(Serial2.available() > 0)
+  {
+    String _data_str = Serial2.readString();
+    log_e("%s",_data_str);
+    StaticJsonDocument<500> doc;
 
+    // Deserialize the JSON document
+    DeserializationError error = deserializeJson(doc, _data_str);
+
+    // Test if parsing succeeds.
+    if (error) {
+      Serial.print(F("deserializeJson() failed: "));
+      Serial.println(error.f_str());
+      return;
+    }
+
+    // Fetch values.
+    //
+    // Most of the time, you can rely on the implicit casts.
+    // In other case, you can do doc["time"].as<long>();
+    sensorDataTemp_st.salinityVoltage_f = doc["SalinityVoltage"];
+    sensorDataTemp_st.salinityVoltage_f = doc["TemperatureVoltage"];
+    sensorDataTemp_st.salinityVoltage_f = doc["PHVoltage"];
+    sensorDataTemp_st.salinityVoltage_f = doc["DOVoltage"];
+    
+    sensorDataTemp_st.salinity_f = doc["Salinity"];
+    sensorDataTemp_st.ph_f = doc["PH"];
+    sensorDataTemp_st.do_f = doc["DO"];
+    sensorDataTemp_st.temperature_c_f = doc["Temperature"];
+  
+  
+  }
  
 }
 
@@ -13,7 +44,7 @@ void device_dataManagement()
   struct sensorData sensorDataTemp_st;
   sensorDataTemp_st = sensorData_st;
   DS3231_getStringDateTime(realTime, DateTime::TIMESTAMP_FULL , dateTime_string);	
-  createSensorDataString(sensorDataString, (const char *)espID, dateTime_string ,sensorDataTemp_st);
+  createSensorDataString(sensorDataString, (const char *)NAME_DEVICE, dateTime_string ,sensorDataTemp_st);
 	DS3231_getStringDateTime(realTime, DateTime::TIMESTAMP_DATE, nameFileSaveData);
 	SDcard_saveStringDataToFile(&connectionStatus_st, sensorDataString);
   createMessageMQTTString(messageData, (const char *)espID, timeClient, sensorDataTemp_st);
@@ -22,12 +53,14 @@ void device_dataManagement()
 
 void setup() {
     Serial.begin(SERIAL_DEBUG_BAUDRATE);
+    Serial2.begin(SERIAL_DATA_STREAM_BAUDRATE);
     log_e("Booting...");
 
     WIFI_init();
 	  MQTT_initClient(topic, espID, mqttClient, &connectionStatus_st);
 	  timeClient.begin();
 
+    Wire.begin(PIN_SDA_GPIO, PIN_SCL_GPIO, I2C_CLOCK_SPEED);
 	  DS3231_init(realTime, timeClient, Wire, connectionStatus_st);
 	  SDcard_init(PIN_NUM_CLK, PIN_NUM_MISO, PIN_NUM_MOSI, PIN_CS_SD_CARD, &connectionStatus_st);
 

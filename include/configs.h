@@ -12,9 +12,10 @@
 #ifndef CONFIGS_H
 #define CONFIGS_H
 
-#define NAME_DEVICE "SPARC-2"
+#define NAME_DEVICE "IOT-Dam-Tom-1"
 
 #define SERIAL_DEBUG_BAUDRATE           (9600)
+#define SERIAL_DATA_STREAM_BAUDRATE     (115200)
 #define DEVICE_DATA_SAVE_INTERVAL_TIME  (10000UL)
 #define DEVICE_PRE_GET_DATE_TIME        (10000UL)
 #define ERROR_CODE                      int

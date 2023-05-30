@@ -35,7 +35,10 @@ ERROR_CODE createSensorDataString(char *_sensorDataString,
                                 _sensorData_st.salinityVoltage_f,
                                 _sensorData_st.temperatureVoltage_f,
                                 _sensorData_st.phVoltage_f,
-                                _sensorData_st.doVoltage_f);
+                                _sensorData_st.salinity_f,
+                                _sensorData_st.temperature_c_f,
+                                _sensorData_st.ph_f,
+                                _sensorData_st.do_f);
     
 	if (_sensorDataString[0] == '\0')
 	{
@@ -65,6 +68,11 @@ ERROR_CODE createMessageMQTTString( String &messageMQTTString,
     doc["PHVoltage"] = _sensorData_st.phVoltage_f;
     doc["DOVoltage"] = _sensorData_st.doVoltage_f;
     doc["TemperatureVoltage"]  = _sensorData_st.temperatureVoltage_f;
+
+    doc["Salinity"] = _sensorData_st.salinity_f;
+    doc["PH"] = _sensorData_st.ph_f;
+    doc["DO"] = _sensorData_st.do_f;
+    doc["Temperature"]  = _sensorData_st.temperature_c_f;
 
     String output;
     serializeJson(doc, output);
